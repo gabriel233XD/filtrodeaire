@@ -60,9 +60,15 @@
     <div id="salida" class="value">— PPM</div>
   </div>
 
+  <!-- Gráficos -->
   <div class="card">
-    <h3>Gráfico de Calidad del Aire</h3>
-    <canvas id="chartAirQuality"></canvas>
+    <h3>Gráfico de Calidad del Aire en la Entrada</h3>
+    <canvas id="chartEntrada"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>Gráfico de Calidad del Aire en la Salida</h3>
+    <canvas id="chartSalida"></canvas>
   </div>
 
   <script type="module">
@@ -111,7 +117,8 @@
         }
       });
 
-    const cAirQuality = mkChart('chartAirQuality', airQualityEntrada, labels, '#3498db');
+    const cEntrada = mkChart('chartEntrada', airQualityEntrada, labels, '#3498db');
+    const cSalida = mkChart('chartSalida', airQualitySalida, labels, '#e74c3c');
 
     // Leer datos de Firebase
     onChildAdded(query(ref(db, "lecturas"), limitToLast(200)), snap => {
@@ -128,10 +135,12 @@
       airQualityEntrada.push(entrada);
       airQualitySalida.push(salida);
       [labels, airQualityEntrada, airQualitySalida].forEach(trim);
-      cAirQuality.update();
+      cEntrada.update();
+      cSalida.update();
     });
   </script>
 
 </body>
 </html>
+
 
